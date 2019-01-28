@@ -100,7 +100,7 @@ unload:
 	-rm -r "$(DWNL_D)"
 	-rm -r "$(RPM_D)"
 
-environment:
+environment env:
 	@echo '# Setting environment for $(ROOT_D)'
 	@echo 'ROOT_D="$(ROOT_D)"'
 	@echo
