@@ -29,6 +29,8 @@ Printing the lines to add to your .rc:
 make environment
 ```
 
+You can also use `make env`. It is a short alias for `make environement`.
+
 This will output a block of text like the following (2018-09-29):
 
 ```sh
@@ -44,10 +46,13 @@ export LD_LIBRARY_PATH="$L:$ROOT_D/usr/lib:$ROOT_D/usr/lib64"
 Tip: You can source it using process substitution if you like:
 
 ```sh
-source <(cd user-yum.sh/ && make environment)
+source <(cd user-yum.sh/ && make env)
 ```
 
-Remove the root install folder to remove all installed packages.
+`eval "$(cd user-yum.sh/ && make env)"` works too. Actually, it even compatible with
+dash, while `source <(cd user-yum.sh/ && make env)` isn't.
+
+Remove the root install folder (`$ROOT_D`) to remove all installed packages.
 
 There is currently no way to remove a package from the directory after running
 `make install` so be careful: use backup or use several instances. If you've
@@ -70,7 +75,7 @@ em.sh install
 ```
 
 ```sh
-source <(user-yum.sh/em.sh environment)
+source <(user-yum.sh/em.sh env)
 ```
 
 ## Configuration
@@ -78,10 +83,10 @@ source <(user-yum.sh/em.sh environment)
 ### Root directory
 
 You should configure the `ROOT_D` value in the Makefile to your liking. The
-default is (as of 2018-09-29) (was?):
+default is (as of 2019-01-29) (was?):
 
 ```sh
-ROOT_D := $(shell echo $$HOME)/y
+ROOT_D := root
 ```
 
 ### Install flag
@@ -98,8 +103,3 @@ to
 ```sh
 INSTALL_FLAG_PREFIX :=
 ```
-
-### TODO
-
-* Simplify the implementation of the install process. There's no reason to keep
-any .cpio file since we can just pipe them (`rpm2cpio x.rpm | cpio -id`).
