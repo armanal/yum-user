@@ -21,6 +21,30 @@ Installing all downloaded packages:
 make install
 ```
 
+If yum can't find the package you're asking for, it'll tell you "No Match for argument ...":
+
+```sh
+$ make +vim
+No Match for argument vim
+
+```
+
+Use `yum search` to find the correct package name before downloading it:
+
+```sh
+$ yum search vim
+vim-X11.x86_64 : The VIM version of the vi editor for the X Window System
+vim-common.x86_64 : The common files needed by any version of the VIM editor
+vim-enhanced.x86_64 : A version of the VIM editor which includes recent
+                    : enhancements
+vim-filesystem.x86_64 : VIM filesystem layout
+vim-minimal.x86_64 : A minimal version of the VIM editor
+
+$ make +vim-common
+
+
+```
+
 ### Help to setup
 
 Printing the lines to add to your .rc:
